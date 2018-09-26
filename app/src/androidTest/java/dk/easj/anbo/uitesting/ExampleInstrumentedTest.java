@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -25,15 +26,13 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    @Test
+
+   /* @Test
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
         assertEquals("dk.easj.anbo.uitesting", appContext.getPackageName());
-
-
-    }
+    }*/
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
@@ -41,18 +40,21 @@ public class ExampleInstrumentedTest {
 
     // https://developer.android.com/training/testing/espresso/setup
     @Test
-    public void listGoesOverTheFold() {
+    public void testItAll() {
         onView(withText("Hello World!")).check(matches(isDisplayed()));
+
         onView(withId(R.id.mainCountButton)).perform(ViewActions.click());
         onView(withId(R.id.mainResultTextView)).check(matches(withText("1")));
 
         onView(withId(R.id.mainCountButton)).perform(ViewActions.click());
         onView(withId(R.id.mainResultTextView)).check(matches(withText("2")));
 
-        onView(withId(R.id.mainNextButton)).perform(ViewActions.click());
+        onView(withId(R.id.mainNextButton)).perform(ViewActions.click()); // triggers Intent
         onView(withText("Another")).check(matches(isDisplayed()));
 
         onView(withId(R.id.anotherTextView)).check((matches(withText("Another"))));
 
+        pressBack();
+        onView(withText("2")).check(matches(isDisplayed()));
     }
 }

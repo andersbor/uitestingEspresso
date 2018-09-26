@@ -22,9 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="countButtonClicked"
-        android:text="Count"
-
-        />
+        android:text="Count"/>
 
     <Button
         android:id="@+id/mainNextButton"
